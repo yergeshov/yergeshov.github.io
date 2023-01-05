@@ -3,92 +3,139 @@
 
 <head>
 
-	<meta charset="UTF-8" />
-	<meta name="author" content="Bekzat Yergeshov">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Bekzat Yergeshov">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
 
-	<title> Bekzat Yergeshov </title>
+  <title> Bekzat Yergeshov </title>
 
-	<link rel="shortcut icon" href="./assets/img/logo.ico" type="image/x-icon">
+  <link media="(prefers-color-scheme: light)" rel="shortcut icon" type="image/x-icon" href="./assets/img/logo.ico"/>
+  <link media="(prefers-color-scheme: dark)" rel="shortcut icon" type="image/x-icon" href="./assets/img/logo-dark.ico"/>
 
-	<style>
-		html,
-		body {
-			overflow: hidden;
-			margin: 0;
-		}
+  <style>
 
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-			color: #6788f3;
-		}
+    :root {
+      --light-background-color: #fff;
+      --light-text-color: #6788f3;
+      --light-link-color: #6788f3;
 
-		#wrapper {
-			position: absolute;
-			left: 0;
-			width: 230px;
-			top: 50%;
-			left: 50%;
-			margin-left: -115px;
-			margin-top: -115px;
-		}
+      --dark-background-color: #222223;
+      --dark-text-color: #f0f0f0;
+      --dark-link-color: #e0e0e0;
+    }
 
-		h1 {
-			margin: 5px 0 15px 0;
-			font-size: 2.8rem;
-			font-weight: bold;
-			letter-spacing: 1px;
-			text-transform: capitalize;
-		}
+    html,
+    body {
+      overflow: hidden;
+      margin: 0;
+    }
 
-		h2 {
-			margin: 0px;
-			font-size: 1.8rem;
-			font-weight: normal;
-			letter-spacing: 1px;
-			text-transform: capitalize;
-		}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--light-background-color);
+      color: var(--light-text-color);
+    }
 
-		h1,
-		h2 {
-			position: relative;
-		}
+    #wrapper {
+      position: absolute;
+      width: 230px;
+      top: 50%;
+      left: 50%;
+      margin-left: -115px;
+      margin-top: -115px;
+    }
 
-		p {
-			margin: 5px;
-			font-size: 1.2rem;
-			letter-spacing: 2px;
-			border-radius: 50px;
-		}
+    h1 {
+      text-transform: capitalize;
+    }
 
-		a {
-			color: #6788f3;
-			text-decoration: none;
-			transition: color .2s ease;
-		}
+    h3 {
+      text-transform: capitalize;
+    }
 
-		a:hover {
-			text-decoration: underline;
-		}
-	</style>
+
+    p {
+      margin-left: 3px;
+      font-weight: bolder;
+    }
+
+    a {
+      color: var(--light-link-color);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .me-2{
+      margin-right: 3px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body.theme-auto {
+        background-color: var(--dark-background-color);
+        color: var(--dark-text-color);
+      }
+
+      .theme-auto a {
+        color: var(--dark-link-color);
+      }
+    }
+
+  </style>
 
 </head>
 
 <body>
 
-	<div id="wrapper">
+<div id="wrapper">
 
-		<h2>Hello, I'm</h2>
-		<h1>Bekzat Yergeshov</h1>
+  <h3>Hello, I'm</h3>
+  <h1>Bekzat Yergeshov</h1>
 
-		<p>
-			<a href="https://github.com/yergeshov" target="_blank">GitHub</a>
-			<a href="https://www.linkedin.com/in/bekzat-yergeshov-2369b81b0/" target="_blank">LinkedIn</a>
-		</p>
+  <p>
+    <a href="https://github.com/yergeshov" target="_blank" class="me-2">GitHub</a>
+    <a href="https://www.linkedin.com/in/bekzat-yergeshov-2369b81b0/" target="_blank">LinkedIn</a>
+  </p>
 
-	</div>
+</div>
+
+
+<script>
+  /*
+  https://itgap.ru/post/kak-dobavit-temnyj-rezhim-na-sajt
+   */
+  function applyTheme(theme) {
+    document.body.classList.remove("theme-auto", "theme-light", "theme-dark");
+    document.body.classList.add(`theme-${theme}`);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#theme").addEventListener("change", function () {
+      applyTheme(this.value);
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme") || "auto";
+
+    applyTheme(savedTheme);
+
+    for (const optionElement of document.querySelectorAll("#theme option")) {
+      optionElement.selected = savedTheme === optionElement.value;
+    }
+
+    document.querySelector("#theme").addEventListener("change", function () {
+      localStorage.setItem("theme", this.value);
+      applyTheme(this.value);
+    });
+  });
+
+</script>
 
 </body>
 
